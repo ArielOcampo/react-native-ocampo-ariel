@@ -14,6 +14,7 @@ import {
 } from '@react-navigation/drawer';
 import Home from './src/components/Home';
 import Cities from './src/components/Cities';
+import ItinerarieDetails from './src/components/ItinerarieDetails';
 const { height } = Dimensions.get("window");
 
 
@@ -40,8 +41,6 @@ const Drawer = createDrawerNavigator();
 function MyDrawer() {
   return (
     <Drawer.Navigator
-
-
       useLegacyImplementation
       drawerContent={(props) => <CustomDrawerContent  {...props} />}
     >
@@ -56,7 +55,12 @@ function MyDrawer() {
         },
 
       }} />
-      <Drawer.Screen name="Cities" component={Cities} />
+      <Drawer.Screen name="Cities" component={Cities} options={{
+        headerStyle: {
+          backgroundColor: '#1f2937',
+        }
+      }} />
+      <Drawer.Screen name="Details" component={ItinerarieDetails} options={{ headerShown: true, drawerItemStyle: { height: 0 } }} />
     </Drawer.Navigator>
   );
 }
@@ -75,9 +79,8 @@ export default function App() {
 const styles = StyleSheet.create({
 
   container: {
-    flex: 1,
-    // flexDirection: 'column',
-    // height: height
+    // flex: 1,
+
   }
 
 });

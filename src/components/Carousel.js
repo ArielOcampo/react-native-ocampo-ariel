@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from "react";
 import citiesActions from '../redux/actions/citiesActions'
+import { BlurView } from 'expo-blur';
 
 import {
   StyleSheet,
@@ -15,17 +16,6 @@ import {
 } from "react-native";
 
 import { LinearGradient } from "expo-linear-gradient";
-
-const imagenes = [
-  "https://images.unsplash.com/photo-1559494007-9f5847c49d94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
-  "https://images.unsplash.com/photo-1506477331477-33d5d8b3dc85?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2425&q=80",
-  "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=652&q=80",
-  "https://images.unsplash.com/photo-1525183995014-bd94c0750cd5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-  "https://images.unsplash.com/photo-1488462237308-ecaa28b729d7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=714&q=80",
-  "https://images.unsplash.com/photo-1503756234508-e32369269deb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80",
-  "https://images.unsplash.com/photo-1504681869696-d977211a5f4c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=652&q=80",
-];
-
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -46,6 +36,7 @@ function Backdrop({ scrollX }) {
 
 
   return (
+
     <View
       style={[
         {
@@ -57,6 +48,7 @@ function Backdrop({ scrollX }) {
         StyleSheet.absoluteFillObject,
       ]}
     >
+
       {cities?.map((city, index) => {
         const inputRange = [
           (index - 1) * ANCHO_CONTENEDOR,
@@ -77,6 +69,8 @@ function Backdrop({ scrollX }) {
               StyleSheet.absoluteFillObject,
             ]}
           />
+
+
         );
       })}
       <LinearGradient
@@ -85,9 +79,17 @@ function Backdrop({ scrollX }) {
           width,
           height: ALTURA_BACKDROP,
           position: "absolute",
-          bottom: 0,
+          bottom: -15,
+
         }}
       />
+      <View >
+        <BlurView intensity={50} tint="dark" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 20 }}>
+          <Text style={{ color: 'white', padding: 30, fontWeight: 'bold', fontSize: 18 }}>Popular Mytineraries</Text>
+        </BlurView>
+
+
+      </View>
     </View>
   );
 }
@@ -95,7 +97,7 @@ function Backdrop({ scrollX }) {
 export default function Carousel() {
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const cities = useSelector(store => store.citiesReducer.cities)
-  console.log(cities)
+
   return (
 
     <SafeAreaView >
@@ -117,6 +119,7 @@ export default function Carousel() {
           snapToAlignment="start"
           contentContainerStyle={{
             paddingTop: 200,
+            paddingBottom: 50,
             paddingHorizontal: ESPACIO_CONTENEDOR,
           }}
 
@@ -125,7 +128,7 @@ export default function Carousel() {
           scrollEventThrottle={16}
 
           data={cities}
-          keyExtractor={(item) => item}
+          keyExtractor={(item) => item._id}
           renderItem={({ item, index }) => {
             const inputRange = [
               (index - 1) * ANCHO_CONTENEDOR,
@@ -174,6 +177,7 @@ export default function Carousel() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
     backgroundColor: "#fff",
     justifyContent: "center",
 

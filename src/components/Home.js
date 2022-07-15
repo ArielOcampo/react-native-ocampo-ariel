@@ -15,10 +15,10 @@ var box_height = height / box_count;
 export default function Home({ navigation }) {
 
   return (
-    <ScrollView >
+    <View style={styles.container}>
       <SafeAreaView >
+        <ScrollView >
 
-        <View style={styles.container}>
 
           <Text >Home</Text>
           <View style={{ height: 200, }}>
@@ -58,13 +58,16 @@ export default function Home({ navigation }) {
           </View>
           <Button style={tw` py-3 px-6 rounded-md bg-sky-600 focus:bg-sky-700 active:bg-sky-500`} title="Open drawer" onPress={() => navigation.openDrawer()} />
           <Button title="Toggle drawer" onPress={() => navigation.toggleDrawer()} />
-          <View style={[styles.box, styles.Carousel]}>
-            <Carousel />
-          </View>
-        </View>
+          <View style={{ height: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 
+            <Carousel />
+            <Text style={{ color: 'white', height: 50, padding: 30, }}>Footer</Text>
+          </View>
+
+
+        </ScrollView >
       </SafeAreaView>
-    </ScrollView >
+    </View>
 
 
   );
@@ -85,9 +88,12 @@ const styles = StyleSheet.create({
   box: {
     height: box_height
   },
-  Carousel: {
-    height: '100%',
-  }
+  container: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+  },
+
 });
 
 
